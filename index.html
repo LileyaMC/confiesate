@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>✨ Confesionario Anónimo de Lileya_MC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@400;700&family=Carattere&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 2. Definición de Paleta de Colores y Tipografía */
+        :root {
+            --color-principal: #884e96;    /* Púrpura oscuro (Texto/Borde base) */
+            --color-secundario: #eb598e;  /* Rosa intenso (Acento/Botón) */
+            --color-terciario: #ffd981;    /* Amarillo (Resaltado) */
+            --color-cian: #c2f8f9;         /* Cian pálido (Fondo animado/Glow) */
+            --color-panal-claro: #f0c3ac; /* Naranja pálido (Fondo de panal base) */
+            --color-panal-oscuro: #f0a2d6; /* Rosa claro (Detalle de panal) */
+        
+            --font-titulo: 'Righteous', cursive;
+            --font-cuerpo: 'Roboto', sans-serif;
+            --font-cursiva: 'Carattere', cursive;
+        }
+
+        /* --- ANIMACIONES --- */
+        
+        /* 1. Animación de Brillo de Neón (Para el título h1) */
+        @keyframes neonGlow {
+            0% { 
+                text-shadow: 0 0 5px var(--color-secundario), 0 0 10px var(--color-principal); 
+                transform: scale(1);
+            }
+            50% { 
+                text-shadow: 0 0 15px var(--color-cian), 0 0 30px var(--color-secundario); 
+                transform: scale(1.02); /* Sutil pulsación */
+            }
+            100% { 
+                text-shadow: 0 0 5px var(--color-secundario), 0 0 10px var(--color-principal); 
+                transform: scale(1);
+            }
+        }
+
+        /* 2. Animación de Borde Pulsante (Para el botón) */
+        @keyframes pulseButton {
+            0% { box-shadow: 0 0 0 0 var(--color-secundario); }
+            50% { box-shadow: 0 0 20px 10px rgba(235, 89, 142, 0.6); } /* Más grande y brillante */
+            100% { box-shadow: 0 0 0 0 var(--color-secundario); }
+        }
+
+        /* 3. Animación de Borde de Resplandor (Para el formulario/textarea) */
+        @keyframes borderGlow {
+            0% { border-color: var(--color-secundario); box-shadow: 0 0 5px var(--color-secundario); }
+            50% { border-color: var(--color-cian); box-shadow: 0 0 15px var(--color-cian); }
+            100% { border-color: var(--color-secundario); box-shadow: 0 0 5px var(--color-secundario); }
+        }
+
+        /* 4. Animación de Fondo (Movimiento de las Nubes a la derecha) */
+        @keyframes subtleShift {
+            0% { background-position: 0 0; }
+            100% { background-position: 300px 0; } /* Mueve la imagen 300px a la derecha */
+        }
+        
+        /* 3. Estilos Generales y Fondo */
+        body {
+            font-family: var(--font-cuerpo);
+            color: var(--color-principal);
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            position: relative; 
+            
+            /* SOLO COLOR BASE */
+            background-color: var(--color-panal-claro); 
+        }
+        
+        /* --- PSEUDO-ELEMENTO: CAPA DE IMAGEN DE FONDO DE NUBES (CUBRIENDO TODO) --- */
+        body::before {
+            content: '';
+            position: fixed; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Detrás del contenido */
+            
+            /* CLAVE: Usamos la URL de la imagen (definida en el script) */
+            background-image: var(--fondo-imagen-url);
+            
+            /* CLAVE: Repite en todas direcciones para cubrir toda la pantalla */
+            background-repeat: repeat; 
+            
+            /* CLAVE: Tamaño ajustado para que muchas nubes quepan y se cubra todo */
+            background-size: 200px 200px; 
+            
+            /* Ajuste inicial de la posición */
+            background-position: 0 0; 
+            
+            /* Transparencia ajustada */
+            opacity: 0.4; 
+            
+            /* Animación más rápida */
+            animation: subtleShift 15s linear infinite; 
+        }
+
+
+        .container {
+            max-width: 700px;
+            width: 95%;
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4); 
+            border: 4px solid var(--color-principal); 
+            margin-bottom: 40px; 
+            overflow: hidden; 
+        }
+
+        /* Títulos */
+        h1 {
+            font-family: var(--font-titulo);
+            font-size: 2.8em; 
+            text-align: center;
+            color: var(--color-secundario); 
+            text-shadow: 1px 1px 0 var(--color-principal); 
+            margin-bottom: 5px;
+            animation: neonGlow 2.5s infinite alternate ease-in-out; 
+        }
+        h2 {
+            font-family: var(--font-titulo);
+            color: var(--color-principal);
+            border-bottom: 3px solid var(--color-secundario);
+            padding-bottom: 5px;
+            margin-top: 20px;
+            font-size: 1.6em;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+        h2:hover {
+            color: var(--color-secundario);
+            text-shadow: 0 0 5px var(--color-cian);
+        }
+
+        /* Texto de Advertencia */
+        .warning-text {
+            background-color: var(--color-terciario); 
+            color: var(--color-principal);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            border: 2px dashed var(--color-secundario); 
+        }
+        
+        .quote {
+            font-family: var(--font-cursiva);
+            font-size: 2em; 
+            color: var(--color-secundario);
+            text-align: center;
+            margin: 20px 0;
+            line-height: 1.2;
+            text-shadow: 1px 1px 0 var(--color-cian); 
+        }
+
+        /* Secciones de Tipos de Confesiones */
+        .confession-type {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 5px solid var(--color-secundario);
+            background-color: #e8c3fa; 
+            border-radius: 5px;
+            transition: transform 0.2s, box-shadow 0.3s;
+        }
+        .confession-type:hover {
+            transform: scale(1.01); 
+            box-shadow: 0 0 10px rgba(136, 78, 150, 0.5); 
+        }
+        .confession-type h3 {
+            font-family: var(--font-titulo);
+            font-size: 1.2em;
+            color: var(--color-principal);
+            margin-top: 0;
+            margin-bottom: 5px;
+        }
+
+        /* 4. Estilos del Formulario */
+        #dataForm {
+            margin-top: 30px;
+            padding: 30px;
+            border: 4px solid var(--color-secundario);
+            border-radius: 15px;
+            background-color: var(--color-cian); 
+            box-shadow: 0 0 15px var(--color-principal) inset;
+            
+            /* Aplicación de Animación de Borde */
+            animation: borderGlow 3s infinite alternate; 
+        }
+
+        textarea {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            box-sizing: border-box;
+            border: 3px solid var(--color-secundario);
+            border-radius: 10px;
+            font-family: var(--font-cuerpo);
+            font-size: 1.1em;
+            min-height: 200px;
+            resize: vertical; 
+            background-color: white;
+            color: var(--color-principal);
+            
+            /* Animación de Borde solo al enfocar */
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        textarea:focus {
+            border-color: var(--color-principal);
+            box-shadow: 0 0 20px var(--color-secundario); 
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            font-family: var(--font-titulo);
+            background-color: var(--color-secundario);
+            color: white;
+            padding: 20px 20px; 
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.8em; 
+            transition: background-color 0.3s ease;
+            box-shadow: 0 5px 0 var(--color-principal); 
+            animation: pulseButton 2s infinite; 
+        }
+        button:hover {
+            background-color: #c44073; 
+            box-shadow: 0 2px 0 var(--color-principal);
+            transform: translateY(3px);
+        }
+
+        /* Mensajes de Feedback */
+        #feedback { 
+            margin-top: 20px; 
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold; 
+            font-family: var(--font-titulo);
+            font-size: 1.2em;
+            transition: all 0.5s;
+        }
+        .success { background-color: var(--color-cian); color: var(--color-principal); border: 2px solid var(--color-principal); } 
+        .error { background-color: #f8c2c2; color: #c0392b; border: 2px solid #c0392b; } 
+        
+        .cursive-header {
+            font-family: var(--font-cursiva);
+            font-size: 1.8em; 
+            color: var(--color-principal);
+            text-align: center;
+            margin-bottom: 15px;
+        }
+    </style>
+
+    <script>
+        const IMAGE_URL_CLOUDS = 'url("nube-removebg-preview.png")'; 
+        document.documentElement.style.setProperty('--fondo-imagen-url', IMAGE_URL_CLOUDS);
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        
+        <h1>El confesionario de Lileya_MC</h1>
+        <div class="cursive-header">El lugar donde tu secreto está a salvo.</div>
+
+        <div class="warning-text">
+            Lee con atención antes de confesar:
+        </div>
+
+        <h2>¿Qué es este lugar?</h2>
+        <p>Ok, esto es simple: este es un confesionario anónimo para la comunidad de <strong>Lileya_MC</strong>.</p>
+        <ul>
+            <li>Tú escribes tu confesión.</li>
+            <li>Yo la leo en stream.</li>
+        </ul>
+
+        <h2>¿Anónimo de verdad?</h2>
+        <p>Sí, full <strong>incógnito modo ninja</strong>. No veo tu nombre, no veo tu user, no veo nada.</p>
+        <p>Eso sí… ¡Ayúdame a mantener la discreción!</p>
+        <ul>
+            <li>👉 No pongas datos personales.</li>
+            <li>👉 No quemes a nadie.</li>
+            <li>👉 No te autodelates, pls.</li>
+        </ul>
+
+        <h2>¿Qué hago yo con esto?</h2>
+        <p>Dependiendo del mood:</p>
+        <ul>
+            <li>Lo leo y ya.</li>
+            <li>Doy mi humilde opinión.</li>
+            <li>Abrimos debate con el chat.</li>
+            <li>Nos reímos sin opinar.</li>
+            <li>Nos quedamos pensando en silencio incómodo.</li>
+        </ul>
+        <p>Todo puede pasar.</p>
+
+        <h2>🚨 Reglas rápidas</h2>
+        <ol>
+            <li>Nada ilegal (no me metas en problemas).</li>
+            <li>Nada de odio o violencia.</li>
+            <li>Nada de exponer gente real sin su permiso.</li>
+            <li>Respeto, aunque el chisme esté bueno.</li>
+        </ol>
+        <p>Si rompe las reglas, no sale en stream y ya.</p>
+        
+        <h2>Tipos de Confesiones</h2>
+        <div class="confession-type">
+            <h3>🔥 CONFESIONES HOT</h3>
+            <p>Este es un confesionario anónimo. Nadie sabe quién eres… relájate 😏</p>
+        </div>
+        <div class="confession-type">
+            <h3>🤡 CONFESIONES RANDOM</h3>
+            <p>Pensamientos raros, anécdotas absurdas, cosas que te pasaron y aún te dan risa.</p>
+        </div>
+        <div class="confession-type">
+            <h3>💀 CONFESIONES EXISTENCIALES</h3>
+            <p>Pensamientos profundos, dudas raras, cosas que te pesan o te dejan pensando.</p>
+        </div>
+
+
+        <div class="quote">
+            Este es tu momento.<br>
+            Escribe eso que nunca dirías en voz alta… y suéltalo 
+        </div>
+        
+        <form id="dataForm">
+            <label for="texto_entrada_id">Tu Confesión:</label>
+            <textarea id="texto_entrada_id" name="texto_entrada" placeholder="Escribe tu secreto aquí..." required></textarea>
+            
+            <button type="submit">¡CONFESAR Y SOLTAR EL PESO! </button>
+        </form>
+        
+        <p id="feedback">Esperando tu confesión...</p>
+    </div>
+
+    <script>
+        // ¡IMPORTANTE! TU URL DE APPS SCRIPT
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwbq0AvLedkSaZ6bEaT_xsIiPtDH8Hx7DfRg9q9RM9IDWM69bmf-MzVCc-uqUYLXt5Twg/exec'; 
+        
+        document.getElementById('dataForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const form = e.target;
+            const feedbackElement = document.getElementById('feedback');
+            
+            feedbackElement.textContent = 'Procesando tu confesión...';
+            feedbackElement.className = '';
+
+            const formData = new FormData(form);
+            
+            fetch(SCRIPT_URL, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result === 'success') {
+                    feedbackElement.textContent = '✅ ¡Confesión enviada y guardada anónimamente!';
+                    feedbackElement.className = 'success';
+                    form.reset(); 
+                } else {
+                    feedbackElement.textContent = '❌ Error al enviar la confesión: ' + (data.message || 'Respuesta inesperada.');
+                    feedbackElement.className = 'error';
+                }
+            })
+            .catch(error => {
+                console.error('Error de red:', error);
+                feedbackElement.textContent = '❌ Ocurrió un error de conexión o red. Revisa la consola para más detalles.';
+                feedbackElement.className = 'error';
+            });
+        });
+    </script>
+</body>
+</html>
