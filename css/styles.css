@@ -1,0 +1,812 @@
+@import url('https://fonts.googleapis.com/css2?family=Righteous&family=Roboto:wght@300;400;700&family=Carattere&family=Outfit:wght@300;400;600;700&display=swap');
+
+/* ── 2. VARIABLES ──────────────────────────────────────────── */
+:root {
+    --color-principal: #884e96;
+    --color-secundario: #eb598e;
+    --color-terciario: #ffd981;
+    --color-cian: #c2f8f9;
+    --color-panal-claro: #f0c3ac;
+    --color-panal-oscuro: #f0a2d6;
+
+    --glass-bg: rgba(255, 255, 255, 0.12);
+    --glass-border: rgba(255, 255, 255, 0.25);
+
+    --font-titulo: 'Righteous', cursive;
+    --font-cuerpo: 'Outfit', sans-serif;
+    --font-cursiva: 'Carattere', cursive;
+
+    --transition: 0.3s ease;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 8px;
+}
+
+/* ── 3. RESET ──────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ── 4. ANIMACIONES ────────────────────────────────────────── */
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes cloudMove {
+    0% {
+        transform: translateX(-220px);
+    }
+
+    100% {
+        transform: translateX(110vw);
+    }
+}
+
+@keyframes neonGlow {
+    0% {
+        text-shadow: 2px 2px 0 var(--color-principal), 0 0 4px var(--color-secundario);
+        transform: scale(1);
+    }
+
+    50% {
+        text-shadow: 2px 2px 0 var(--color-principal), 0 0 10px var(--color-secundario), 0 0 18px var(--color-cian);
+        transform: scale(1.01);
+    }
+
+    100% {
+        text-shadow: 2px 2px 0 var(--color-principal), 0 0 4px var(--color-secundario);
+        transform: scale(1);
+    }
+}
+
+@keyframes pulseButton {
+    0% {
+        box-shadow: 0 5px 0 var(--color-principal), 0 0 0 0 rgba(235, 89, 142, 0.7);
+    }
+
+    50% {
+        box-shadow: 0 5px 0 var(--color-principal), 0 0 25px 12px rgba(235, 89, 142, 0.35);
+    }
+
+    100% {
+        box-shadow: 0 5px 0 var(--color-principal), 0 0 0 0 rgba(235, 89, 142, 0.7);
+    }
+}
+
+@keyframes borderGlow {
+    0% {
+        border-color: var(--color-secundario);
+        box-shadow: 0 0 8px var(--color-secundario), inset 0 0 15px rgba(136, 78, 150, 0.15);
+    }
+
+    50% {
+        border-color: var(--color-cian);
+        box-shadow: 0 0 20px var(--color-cian), inset 0 0 25px rgba(194, 248, 249, 0.2);
+    }
+
+    100% {
+        border-color: var(--color-secundario);
+        box-shadow: 0 0 8px var(--color-secundario), inset 0 0 15px rgba(136, 78, 150, 0.15);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes confettiFall {
+    0% {
+        transform: translateY(-20px) rotate(0deg);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+/* Animación entrada desde abajo para secciones */
+@keyframes revealUp {
+    from {
+        opacity: 0;
+        transform: translateY(32px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Animación entrada desde la izquierda */
+@keyframes revealLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-28px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Animación escala para cards */
+@keyframes popIn {
+    from {
+        opacity: 0;
+        transform: scale(0.88) translateY(18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Animación para items de lista */
+@keyframes liSlide {
+    from {
+        opacity: 0;
+        transform: translateX(-18px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* ── 5. FONDO GENERAL ──────────────────────────────────────── */
+body {
+    font-family: var(--font-cuerpo);
+    color: var(--color-principal);
+    padding: 30px 16px;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    position: relative;
+    overflow-x: hidden;
+
+    background: linear-gradient(135deg,
+            #e8a8c8 0%,
+            #f0b8bc 25%,
+            #F0C3AC 55%,
+            #f5d0c0 80%,
+            #fce0d4 100%);
+    background-size: 300% 300%;
+    animation: gradientShift 12s ease infinite;
+}
+
+/* ── NUBES INDIVIDUALES ────────────────────────────────────── */
+#clouds-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.cloud-item {
+    position: absolute;
+    will-change: transform;
+    animation: cloudMove linear infinite;
+}
+
+/* ── 6. CONTENEDOR PRINCIPAL ───────────────────────────────── */
+.container {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    padding: 40px 36px;
+    border-radius: var(--radius-lg);
+    box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.18),
+        0 0 0 1px rgba(255, 255, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    border: 2px solid var(--glass-border);
+    margin-bottom: 50px;
+    animation: fadeInUp 0.8s ease both;
+}
+
+/* ── 7. HEADER ─────────────────────────────────────────────── */
+.site-header {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.logo-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: 8px;
+    filter: drop-shadow(0 0 12px var(--color-secundario));
+}
+
+h1 {
+    font-family: var(--font-titulo);
+    font-size: clamp(1.6rem, 5vw, 2.8rem);
+    color: var(--color-secundario);
+    text-shadow: 2px 2px 0 var(--color-principal);
+    margin-bottom: 6px;
+    animation: neonGlow 5s infinite alternate ease-in-out;
+    line-height: 1.2;
+}
+
+.cursive-header {
+    font-family: var(--font-cursiva);
+    font-size: clamp(1.1rem, 3vw, 1.8rem);
+    color: var(--color-principal);
+    opacity: 0.85;
+}
+
+/* ── 8. DIVIDER ────────────────────────────────────────────── */
+.divider {
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--color-secundario), var(--color-cian), var(--color-secundario), transparent);
+    border: none;
+    border-radius: 2px;
+    margin: 24px 0;
+    background-size: 200% auto;
+    animation: shimmer 3s linear infinite;
+}
+
+/* ── 9. ADVERTENCIA ────────────────────────────────────────── */
+.warning-text {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, var(--color-terciario), #ffe4a0);
+    color: var(--color-principal);
+    padding: 14px 18px;
+    border-radius: var(--radius-md);
+    margin-bottom: 28px;
+    font-weight: 700;
+    font-size: 1.05em;
+    border: 2px dashed var(--color-secundario);
+    box-shadow: 0 4px 15px rgba(255, 217, 129, 0.4);
+
+    /* Estado inicial para la animación de entrada */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: box-shadow 0.3s ease;
+}
+
+.warning-text.anim-visible {
+    animation: revealUp 0.6s ease forwards;
+}
+
+.warning-text:hover {
+    box-shadow: 0 8px 25px rgba(255, 217, 129, 0.6);
+}
+
+.warning-text::before {
+    content: '📖';
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+/* ── 10. SECCIONES ─────────────────────────────────────────── */
+.section {
+    opacity: 0;
+    transform: translateY(28px);
+}
+
+.section.anim-visible {
+    animation: revealUp 0.65s ease forwards;
+}
+
+h2 {
+    font-family: var(--font-titulo);
+    color: var(--color-principal);
+    font-size: clamp(1.1rem, 3vw, 1.55rem);
+    margin: 24px 0 10px;
+    padding-bottom: 6px;
+    border-bottom: 3px solid transparent;
+    background:
+        linear-gradient(white, white) padding-box,
+        linear-gradient(90deg, var(--color-secundario), var(--color-cian)) border-box;
+    border-radius: 2px;
+    transition: color var(--transition), text-shadow var(--transition);
+}
+
+h2:hover {
+    color: var(--color-secundario);
+    text-shadow: 0 0 8px var(--color-cian);
+}
+
+p,
+li {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #3d1f4e;
+}
+
+ul,
+ol {
+    padding-left: 22px;
+    margin: 8px 0;
+}
+
+/* ── Animación de items de lista ──────────────────────────── */
+li {
+    margin-bottom: 6px;
+    opacity: 0;
+    transform: translateX(-18px);
+}
+
+li.anim-li {
+    opacity: 0;
+    transform: translateX(-18px);
+}
+
+/* Cuando el padre .section se hace visible, los li se animan */
+.section.anim-visible li.anim-li {
+    animation: liSlide 0.45s ease forwards;
+    animation-delay: var(--li-delay, 0s);
+}
+
+/* ── 11. TIPOS DE CONFESIÓN ────────────────────────────────── */
+.confession-types-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin: 16px 0;
+}
+
+.confession-type {
+    padding: 16px 14px;
+    border-left: 5px solid var(--color-secundario);
+    background: linear-gradient(135deg, #f3daf8, #e8c3fa);
+    border-radius: var(--radius-sm);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    cursor: default;
+    opacity: 0;
+    transform: scale(0.88) translateY(18px);
+}
+
+.confession-type.anim-visible {
+    animation: popIn 0.55s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.confession-type:nth-child(2) {
+    animation-delay: 0.1s;
+}
+
+.confession-type:nth-child(3) {
+    animation-delay: 0.2s;
+}
+
+.confession-type:hover {
+    transform: translateY(-4px) scale(1.03);
+    box-shadow: 0 10px 25px rgba(136, 78, 150, 0.35);
+    border-color: var(--color-cian);
+}
+
+.confession-type h3 {
+    font-family: var(--font-titulo);
+    font-size: 1.05rem;
+    color: var(--color-principal);
+    margin-bottom: 6px;
+}
+
+.confession-type p {
+    font-size: 0.88rem;
+    color: #5a2d6e;
+}
+
+/* ── 12. QUOTE ─────────────────────────────────────────────── */
+.quote {
+    font-family: var(--font-cursiva);
+    font-size: clamp(1.4rem, 4vw, 2.1rem);
+    color: var(--color-secundario);
+    text-align: center;
+    margin: 28px 0;
+    line-height: 1.3;
+    text-shadow: 1px 1px 0 var(--color-cian);
+    padding: 20px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, rgba(235, 89, 142, 0.08), rgba(194, 248, 249, 0.15));
+    border: 1px solid rgba(235, 89, 142, 0.2);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: box-shadow 0.3s ease;
+}
+
+.quote.anim-visible {
+    animation: revealUp 0.7s ease forwards;
+}
+
+.quote:hover {
+    box-shadow: 0 4px 20px rgba(235, 89, 142, 0.2);
+}
+
+/* ── 13. FORMULARIO ────────────────────────────────────────── */
+#dataForm {
+    margin-top: 32px;
+    padding: 28px;
+    border: 3px solid var(--color-secundario);
+    border-radius: var(--radius-lg);
+    background: linear-gradient(135deg, rgba(194, 248, 249, 0.5), rgba(240, 162, 214, 0.2));
+    animation: borderGlow 3s infinite alternate;
+    position: relative;
+}
+
+.form-label {
+    display: block;
+    font-family: var(--font-titulo);
+    font-size: 1.1rem;
+    color: var(--color-principal);
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+}
+
+.textarea-wrapper {
+    position: relative;
+    margin-bottom: 16px;
+}
+
+textarea {
+    width: 100%;
+    padding: 16px;
+    box-sizing: border-box;
+    border: 2.5px solid var(--color-secundario);
+    border-radius: var(--radius-md);
+    font-family: var(--font-cuerpo);
+    font-size: 1.05rem;
+    min-height: 160px;
+    resize: vertical;
+    background: rgba(255, 255, 255, 0.95);
+    color: #3d1f4e;
+    transition: border-color var(--transition), box-shadow var(--transition);
+    line-height: 1.6;
+}
+
+textarea:focus {
+    border-color: var(--color-principal);
+    box-shadow: 0 0 0 3px rgba(136, 78, 150, 0.2), 0 0 20px rgba(235, 89, 142, 0.3);
+    outline: none;
+    background: #fff;
+}
+
+textarea::placeholder {
+    color: #b090c0;
+}
+
+/* ── 14. BOTÓN ─────────────────────────────────────────────── */
+#submitBtn {
+    width: 100%;
+    font-family: var(--font-titulo);
+    background: linear-gradient(135deg, var(--color-secundario), #c44073);
+    color: white;
+    padding: 18px 20px;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-size: clamp(1rem, 3vw, 1.6rem);
+    letter-spacing: 0.5px;
+    transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    box-shadow: 0 5px 0 var(--color-principal);
+    animation: pulseButton 4.5s infinite;
+    position: relative;
+    overflow: hidden;
+    touch-action: manipulation;
+}
+
+#submitBtn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.25) 50%, transparent 100%);
+    background-size: 200% auto;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+#submitBtn:hover {
+    transform: translateY(3px);
+    box-shadow: 0 2px 0 var(--color-principal);
+    background: linear-gradient(135deg, #d44080, #a0305a);
+}
+
+#submitBtn:hover::after {
+    opacity: 1;
+    animation: shimmer 1s linear infinite;
+}
+
+#submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    animation: none;
+    transform: none;
+}
+
+/* ── 15. COOLDOWN BADGE ────────────────────────────────────── */
+.cooldown-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 10px;
+    padding: 8px 14px;
+    background: rgba(255, 217, 129, 0.25);
+    border: 1.5px dashed var(--color-terciario);
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #8a6200;
+}
+
+.cooldown-badge.visible {
+    display: flex;
+}
+
+.cooldown-ring {
+    width: 18px;
+    height: 18px;
+    border: 2.5px solid #d68900;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    flex-shrink: 0;
+}
+
+/* ── 16. SPINNER DE CARGA ──────────────────────────────────── */
+.loading-overlay {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(4px);
+    border-radius: var(--radius-lg);
+    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.loading-overlay.visible {
+    display: flex;
+}
+
+.loading-spinner {
+    width: 48px;
+    height: 48px;
+    border: 5px solid var(--color-panal-oscuro);
+    border-top-color: var(--color-secundario);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+.loading-text {
+    font-family: var(--font-titulo);
+    font-size: 1rem;
+    color: var(--color-principal);
+}
+
+/* ── 17. FEEDBACK ──────────────────────────────────────────── */
+#feedback {
+    margin-top: 20px;
+    padding: 0;
+    border-radius: var(--radius-md);
+    text-align: center;
+    font-family: var(--font-titulo);
+    font-size: 1.05rem;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.4s ease, opacity 0.4s ease;
+    opacity: 0;
+}
+
+#feedback.visible {
+    max-height: 140px;
+    padding: 14px 16px;
+    opacity: 1;
+}
+
+.success {
+    background: linear-gradient(135deg, var(--color-cian), #a8f7f8);
+    color: var(--color-principal);
+    border: 2px solid var(--color-principal);
+}
+
+.error {
+    background: linear-gradient(135deg, #f8c2c2, #fde8e8);
+    color: #c0392b;
+    border: 2px solid #c0392b;
+}
+
+/* ── 18. CONFETI ───────────────────────────────────────────── */
+.confetti-piece {
+    position: fixed;
+    top: -20px;
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    animation: confettiFall linear forwards;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+/* ── 19. FOOTER ────────────────────────────────────────────── */
+.site-footer {
+    text-align: center;
+    margin-top: 28px;
+    padding-top: 18px;
+    border-top: 1.5px solid rgba(136, 78, 150, 0.2);
+    font-size: 0.82rem;
+    color: rgba(61, 31, 78, 0.6);
+}
+
+/* ── 20. SEGURIDAD BADGE ───────────────────────────────────── */
+.security-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(194, 248, 249, 0.4);
+    border: 1px solid var(--color-cian);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--color-principal);
+    margin-top: 8px;
+}
+
+/* ── 21. GIF JUNTO A H2 ────────────────────────────────────── */
+.h2-with-gif {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: nowrap;
+}
+
+.h2-with-gif h2 {
+    margin: 0;
+    flex-shrink: 0;
+}
+
+.reglas-gif {
+    height: 60px;
+    /*Tamaño del Gif*/
+    width: auto;
+    border-radius: 6px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+/* ── 22. RESPONSIVE MÓVIL ──────────────────────────────────── */
+@media (max-width: 600px) {
+    body {
+        padding: 16px 10px;
+    }
+
+    .container {
+        padding: 22px 16px;
+        border-radius: 16px;
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.14);
+    }
+
+    h1 {
+        font-size: 1.55rem;
+        line-height: 1.2;
+    }
+
+    .cursive-header {
+        font-size: 1.1rem;
+    }
+
+    .logo-emoji {
+        font-size: 2.4rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+        margin: 18px 0 8px;
+    }
+
+    p,
+    li {
+        font-size: 0.95rem;
+    }
+
+    .warning-text {
+        padding: 12px 14px;
+        font-size: 0.93em;
+        flex-wrap: wrap;
+    }
+
+    .confession-types-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .confession-type {
+        padding: 14px 12px;
+    }
+
+    .quote {
+        font-size: 1.3rem;
+        padding: 16px 12px;
+        margin: 20px 0;
+    }
+
+    #dataForm {
+        padding: 16px 14px;
+        margin-top: 20px;
+    }
+
+    textarea {
+        min-height: 130px;
+        font-size: 1rem;
+        padding: 12px;
+    }
+
+    #submitBtn {
+        padding: 16px 14px;
+        font-size: 1rem;
+    }
+
+    .site-footer {
+        font-size: 0.75rem;
+    }
+}
+
+@media (max-width: 380px) {
+    h1 {
+        font-size: 1.3rem;
+    }
+
+    .cursive-header {
+        font-size: 1rem;
+    }
+
+    #submitBtn {
+        font-size: 0.95rem;
+        padding: 14px 10px;
+    }
+}
